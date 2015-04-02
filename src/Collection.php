@@ -6,22 +6,39 @@ class Collection
 {
     protected $a = [];
 
-    function __construct(array $array = null)
+    function __construct(array $a = null)
     {
-        if (is_array($array) === true)
+        if (is_array($a) === true)
         {
-            $this->array = $array;
+            $this->a = $a;
         }
     }
 
-    function get($key)
+    function get($k)
     {
-        return $this->a[$key];
+        return $this->a[$k];
     }
 
-    function add($key, $value)
+    function add($k, $v)
     {
-        $this->a[$key] = $vale;
+        $this->a[$k] = $v;
+
+        return $this;
+    }
+
+    function all()
+    {
+        return $this->a;
+    }
+
+    function count()
+    {
+        return count($this->a);
+    }
+
+    function remove($k)
+    {
+        unset($this->a[$k]);
 
         return $this;
     }
