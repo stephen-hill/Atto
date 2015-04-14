@@ -33,6 +33,11 @@ class Collection
         return $this;
     }
 
+    function contains($value)
+    {
+        return in_array($value, $this->items, true);
+    }
+
     function count()
     {
         return count($this->items);
@@ -41,6 +46,11 @@ class Collection
     function get($key)
     {
         return $this->items[$key];
+    }
+
+    function has($key)
+    {
+        return isset($this->items[$key]);
     }
 
     function remove($key)
