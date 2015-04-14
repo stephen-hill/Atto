@@ -14,11 +14,6 @@ class Collection
         }
     }
 
-    function get($key)
-    {
-        return $this->items[$key];
-    }
-
     function add($key, $value)
     {
         $this->items[$key] = $value;
@@ -34,6 +29,11 @@ class Collection
     function count()
     {
         return count($this->items);
+    }
+
+    function get($key)
+    {
+        return $this->items[$key];
     }
 
     function remove($key)
