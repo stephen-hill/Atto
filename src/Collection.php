@@ -4,41 +4,41 @@ namespace Atto;
 
 class Collection
 {
-    protected $a = [];
+    protected $items = [];
 
-    function __construct(array $a = null)
+    function __construct(array $items = null)
     {
-        if (is_array($a) === true)
+        if (is_array($items) === true)
         {
-            $this->a = $a;
+            $this->items = $items;
         }
     }
 
-    function get($k)
+    function get($key)
     {
-        return $this->a[$k];
+        return $this->items[$key];
     }
 
-    function add($k, $v)
+    function add($key, $value)
     {
-        $this->a[$k] = $v;
+        $this->items[$key] = $value;
 
         return $this;
     }
 
     function all()
     {
-        return $this->a;
+        return $this->items;
     }
 
     function count()
     {
-        return count($this->a);
+        return count($this->items);
     }
 
-    function remove($k)
+    function remove($key)
     {
-        unset($this->a[$k]);
+        unset($this->items[$key]);
 
         return $this;
     }
