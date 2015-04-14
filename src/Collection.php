@@ -26,6 +26,13 @@ class Collection
         return $this->items;
     }
 
+    function clear()
+    {
+        $this->items = [];
+
+        return $this;
+    }
+
     function count()
     {
         return count($this->items);

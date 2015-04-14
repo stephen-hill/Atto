@@ -29,5 +29,8 @@ class CollectionTest extends PHPUnit_Framework_TestCase
             ['r' => 'Red', 'g' => 'Green', 'y' => 'Yellow'],
             $c->all()
         );
+
+        $c->clear();
+        $this->assertSame([], $c->all());
     }
 }
