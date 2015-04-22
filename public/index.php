@@ -1,12 +1,9 @@
 <?php
+
 require('../vendor/autoload.php');
 
-$request = new Atto\Request([
-    'post' => $_POST,
-    'query' => $_GET,
-    'server' => $_SERVER,
-    'files' => $_FILES,
-    'cookies' => $_COOKIES
-]);
+$kernal = new HttpKernal();
+$request = Request::createFromGlobals();
 
-(new Atto\App())->run();
+$app = new App($kernal, $request);
+$app->run();
