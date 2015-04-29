@@ -4,7 +4,7 @@
 [![Test Coverage]](https://coveralls.io/r/stephen-hill/Atto)
 [![SemVer]](http://semver.org)
 
-Very small. Very pointless.
+Atto is a PHP Framework solely for developing RESTful APIs.
 
 [Build Status]: http://img.shields.io/travis/stephen-hill/Atto/master.svg?style=flat-square
 [Test Coverage]: http://img.shields.io/coveralls/stephen-hill/Atto/master.svg?style=flat-square
