@@ -5,5 +5,6 @@ require('../vendor/autoload.php');
 $kernal = new HttpKernal();
 $request = Request::createFromGlobals();
 
-$app = new App($kernal, $request);
-$app->run();
+$response = $kernal->handle($request);
+$response->send();
+$kernal->terminate($request, $response);
