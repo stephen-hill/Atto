@@ -32,6 +32,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         });
 
         $timeC = $container->get('hash_time_service');
+        sleep(1);
         $timeD = $container->get('hash_time_service');
 
         $this->assertSame($timeC, $timeD);
