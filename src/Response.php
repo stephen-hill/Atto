@@ -7,9 +7,22 @@ class Response
     public $headers;
     public $content;
     public $version;
-    public $status;
+
+    /**
+     * @var integer
+     */
+    protected $statusCode;
+
+    /**
+     * @var string
+     */
+    protected $statusMessage;
     public $charset;
 
+    /**
+     * Sourced from http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+     * @var array
+     */
     static protected $statuses = [
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -30,7 +43,6 @@ class Response
         303 => 'See Other',
         304 => 'Not Modified',
         305 => 'Use Proxy',
-        306 => 'Reserved',
         307 => 'Temporary Redirect',
         308 => 'Permanent Redirect',
         400 => 'Bad Request',
@@ -46,16 +58,15 @@ class Response
         410 => 'Gone',
         411 => 'Length Required',
         412 => 'Precondition Failed',
-        413 => 'Request Entity Too Large',
-        414 => 'Request-URI Too Long',
+        413 => 'Payload Too Large',
+        414 => 'URI Too Long',
         415 => 'Unsupported Media Type',
-        416 => 'Requested Range Not Satisfiable',
+        416 => 'Range Not Satisfiable',
         417 => 'Expectation Failed',
-        418 => 'I\'m a teapot',
+        421 => 'Misdirected Request',
         422 => 'Unprocessable Entity',
         423 => 'Locked',
         424 => 'Failed Dependency',
-        425 => 'Reserved for WebDAV advanced collections expired proposal',
         426 => 'Upgrade Required',
         428 => 'Precondition Required',
         429 => 'Too Many Requests',
@@ -76,14 +87,14 @@ class Response
     public function __construct($content = '', $status = 200)
     {
         $this->content = $content;
-        $this->status = $status;
+        $this->statusCode = $status;
 
         $this->headers = new Collection();
         $this->version = '1.1';
         $this->charset = 'UTF-8';
     }
 
-    public function send()
+    private function sendHeaders()
     {
         // Check if the headers have already been sent
         if (headers_sent() === true)
@@ -93,11 +104,20 @@ class Response
 
         // HTTP Version and Status
         header(
-            sprintf('HTTP/%s %s %s', $this->version, $this->status, self::$statuses[$this->status]),
+            sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusMessage),
             true,
-            $this->status
+            $this->statusCode
         );
 
+        // Send Headers
+        foreach ($this->headers as $key => $value)
+        {
+            header($key, $value, false, $this->statusCode);
+        }
+    }
+
+    public function send()
+    {
         echo $this->content;
 
         return $this;
