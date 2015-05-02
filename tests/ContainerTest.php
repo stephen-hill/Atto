@@ -15,26 +15,25 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertSame('sha256', $container->get('hash_algo'));
 
         // Factory
-        $container = $container->setFactory('hash_time_factory', function($c)
+        $container = $container->setFactory('hash_rand_factory', function($c)
         {
-            return hash($c->get('hash_algo'), (string)microtime(true));
+            return hash($c->get('hash_algo'), (string)mt_rand());
         });
 
-        $timeA = $container->get('hash_time_factory');
-        $timeB = $container->get('hash_time_factory');
+        $randA = $container->get('hash_rand_factory');
+        $randB = $container->get('hash_rand_factory');
 
-        $this->assertNotEquals($timeA, $timeB);
+        $this->assertNotEquals($randA, $randB);
 
         // Service
-        $container = $container->setService('hash_time_service', function($c)
+        $container = $container->setService('hash_rand_service', function($c)
         {
-            return hash($c->get('hash_algo'), (string)microtime(true));
+            return hash($c->get('hash_algo'), (string)mt_rand());
         });
 
-        $timeC = $container->get('hash_time_service');
-        sleep(1);
-        $timeD = $container->get('hash_time_service');
+        $randC = $container->get('hash_rand_service');
+        $randD = $container->get('hash_rand_service');
 
-        $this->assertSame($timeC, $timeD);
+        $this->assertSame($randC, $randD);
     }
 }
