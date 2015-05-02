@@ -7,9 +7,22 @@ class Response
     public $headers;
     public $content;
     public $version;
-    public $status;
+
+    /**
+     * @var integer
+     */
+    protected $statusCode;
+
+    /**
+     * @var string
+     */
+    protected $statusMessage;
     public $charset;
 
+    /**
+     * Sourced from http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+     * @var array
+     */
     static protected $statuses = [
         100 => 'Continue',
         200 => 'OK',
@@ -40,14 +53,14 @@ class Response
     public function __construct($content = '', $status = 200)
     {
         $this->content = $content;
-        $this->status = $status;
+        $this->statusCode = $status;
 
         $this->headers = new Collection();
         $this->version = '1.1';
         $this->charset = 'UTF-8';
     }
 
-    public function send()
+    private function sendHeaders()
     {
         // Check if the headers have already been sent
         if (headers_sent() === true)
@@ -57,11 +70,20 @@ class Response
 
         // HTTP Version and Status
         header(
-            sprintf('HTTP/%s %s %s', $this->version, $this->status, self::$statuses[$this->status]),
+            sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusMessage),
             true,
-            $this->status
+            $this->statusCode
         );
 
+        // Send Headers
+        foreach ($this->headers as $key => $value)
+        {
+            header($key, $value, false, $this->statusCode);
+        }
+    }
+
+    public function send()
+    {
         echo $this->content;
 
         return $this;
