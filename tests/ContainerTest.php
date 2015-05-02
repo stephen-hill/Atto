@@ -23,7 +23,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $randA = $container->get('hash_rand_factory');
         $randB = $container->get('hash_rand_factory');
 
-        $this->assertNotEquals($randA, $randB);
+        $this->assertNotSame($randA, $randB);
 
         // Service
         $container = $container->setService('hash_rand_service', function($c)
