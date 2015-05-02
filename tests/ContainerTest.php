@@ -23,7 +23,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $timeA = $container->get('hash_time_factory');
         $timeB = $container->get('hash_time_factory');
 
-        $this->assertNotSame($timeA, $timeB);
+        $this->assertNotEquals($timeA, $timeB);
 
         // Service
         $container = $container->setService('hash_time_service', function($c)
