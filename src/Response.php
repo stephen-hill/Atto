@@ -2,7 +2,7 @@
 
 namespace Atto;
 
-class Response
+abstract class Response
 {
     public $headers;
     public $content;
@@ -18,6 +18,11 @@ class Response
      */
     protected $statusMessage;
     public $charset;
+    
+    /**
+     * @var string
+     */
+    protected $contentType;
 
     /**
      * Sourced from http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
