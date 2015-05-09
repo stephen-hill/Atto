@@ -64,4 +64,15 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('kosme', $c->get('utf-8.κόσμε'));
         $this->assertEquals('κόσμε', $c->get('utf-8.kosme'));
     }
+    
+    public function testDataTypes()
+    {
+        $c = $this->config;
+        $this->assertInternalType('string', $c->get('name'));
+        $this->assertInternalType('integer', $c->get('epoch'));
+        $this->assertInternalType('array', $c->get('users'));
+        $this->assertInternalType('float', $c->get('pi'));
+        $this->assertInternalType('boolean', $c->get('true'));
+        $this->assertInternalType('boolean', $c->get('false'));
+    }
 }

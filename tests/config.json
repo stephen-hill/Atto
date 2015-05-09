@@ -1,5 +1,9 @@
 {
     "name": "Atto",
+    "epoch": 1431212586,
+    "pi": 3.14159265359,
+    "true": true,
+    "false": false,
     "users": {
         "shill": {
             "name": "Stephen Hill",
