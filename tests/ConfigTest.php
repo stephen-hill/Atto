@@ -4,7 +4,12 @@ use Atto\Config;
 
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
-    protected $path = __DIR__ . '/config.json';
+    protected $path;
+    
+    function setUp()
+    {
+        $this->path = __DIR__ . '/config.json';
+    }
 
     function testConstructor()
     {
