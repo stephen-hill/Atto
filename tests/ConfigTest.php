@@ -57,4 +57,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $c = $this->config;
         $c->get('key.not.found');
     }
+    
+    public function testUtf8()
+    {
+        $c = $this->config;
+        $this->assertEquals('kosme', $c->get('utf-8.κόσμε'));
+        $this->assertEquals('κόσμε', $c->get('utf-8.kosme'));
+    }
 }
