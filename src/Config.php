@@ -54,16 +54,30 @@ class Config
         {
             $this->load();
         }
+        
+        // Split the key segments into an array
+        $segments = explode('.', $key);
+        $data = $this->data;
+        $value = null;
 
         // Try and find the data
-        if (array_key_exists($key, $this->data) === true)
+        foreach ($segments as $segment)
         {
-            return $this->cache[$key] = $this->data[$key];
+            if (isset($data[$segment]) === true)
+            {
+                $data = $value = $data[$segment];
+                continue;
+            }
+        }
+        
+        if ($value !== null)
+        {
+            return $this->cache[$key] = $value;
         }
 
         if ($default === null)
         {
-            throw new Exception(sprintf('Key %s not found in %s.', $key, $this->path));
+            throw new Exception(sprintf('Key %s not found in %s.', $key, $this->path), 1);
         }
 
         return $default;

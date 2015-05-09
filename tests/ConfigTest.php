@@ -4,31 +4,57 @@ use Atto\Config;
 
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
+    protected $config;
     protected $path;
     
-    function setUp()
+    public function setUp()
     {
         $this->path = __DIR__ . '/config.json';
+        $this->config = new Config($this->path);
     }
 
-    function testConstructor()
+    public function testInstanceType()
     {
-        // Constructor
-        $c = new Config($this->path);
+        $c = $this->config;
         $this->assertInstanceOf('Atto\Config', $c);
     }
 
-    function testSimpleGet()
+    public function testSimpleGet()
     {
-        // Get
-        $c = new Config($this->path);
+        $c = $this->config;
         $this->assertEquals('Atto', $c->get('name'));
     }
 
-    function testSimpleDefault()
+    public function testSimpleDefault()
     {
-        // Get
-        $c = new Config($this->path);
-        $this->assertEquals('John', $c->get('thiskeydoesnotexist', 'John'));
+        $c = $this->config;
+        $this->assertEquals('John', $c->get('keynotfound', 'John'));
+    }
+    
+    public function testSegmentedKey()
+    {
+        $c = $this->config;
+        $this->assertEquals('Lou', $c->get('nicknames.lhill'));
+        $this->assertEquals('Stephen Hill', $c->get('users.shill.name'));
+    }
+    
+    /**
+     * @expectedException Exception
+     * @expectedExceptionCode 1
+     */
+    public function testSimpleKeyNotFound()
+    {
+        $c = $this->config;
+        $c->get('keynotfound');
+    }
+    
+    /**
+     * @expectedException Exception
+     * @expectedExceptionCode 1
+     */
+    public function testSegmentedKeyNotFound()
+    {
+        $c = $this->config;
+        $c->get('key.not.found');
     }
 }
