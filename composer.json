@@ -1,6 +1,18 @@
 {
+    "name": "atto/atto",
+    "description": "Core components of the Atto API framework.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stephen Hill",
+            "email": "stephen@gatekiller.co.uk"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "*"
+    },
+    "suggest": {
+        "lib-openssl": "*"
     },
     "autoload": {
         "psr-4": {
