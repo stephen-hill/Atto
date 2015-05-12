@@ -28,12 +28,34 @@ namespace Atto;
 
 use InvalidArgumentException;
 
+/**
+ * Class for performing symmetric encryption and decryption.
+ *
+ * @author Stephen Hill stephen@gatekiller.co.uk
+ * @license http://opensource.org/licenses/MIT MIT
+ */
 class SymmetricCipher
 {
+    /**
+     * The currently cipher.
+     * 
+     * @var string
+     */
     protected $cipher;
 
+    /**
+     * The current key/password.
+     * 
+     * @var string
+     */
     protected $key;
 
+    /**
+     * Constructor
+     * 
+     * @param string $cipher See openssl_get_cipher_methods() for available ciphers.
+     * @param string $key The key/password to encrypt and decrypt.
+     */
     public function __construct($cipher, $key)
     {
         // Check the encryption cipher is valid
