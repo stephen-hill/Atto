@@ -5,40 +5,53 @@ namespace Atto;
 class Route
 {
     /**
-     * @var string
+     * @var array
      */
-    protected $method;
+    protected $methods;
 
     /**
      * @var string
      */
     protected $path;
 
-    public function __construct($path, $method)
-    {
-        $this->setPath($path)->setMethod($method);
-    }
-
     /**
-     * Gets the value of method.
-     *
-     * @return string
+     * @var string
      */
-    public function getMethod()
+    protected $class;
+
+    /**
+     * @var string
+     */
+    protected $method;
+
+    public function __construct($path, $method, $class, $method)
     {
-        return $this->method;
+        $this->setPath($path)
+             ->setMethod($method)
+             ->setClass($class)
+             ->setMethod($method);
     }
 
     /**
-     * Sets the value of method.
+     * Gets the value of methods.
      *
-     * @param string $method the method
+     * @return array
+     */
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+
+    /**
+     * Sets the value of methods.
+     *
+     * @param array $methods the methods
      *
      * @return self
      */
-    protected function setMethod($method)
+    public function setMethods(array $methods)
     {
-        $this->method = $method;
+        $this->methods = $methods;
 
         return $this;
     }
@@ -60,9 +73,57 @@ class Route
      *
      * @return self
      */
-    protected function setPath($path)
+    public function setPath($path)
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of class.
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * Sets the value of class.
+     *
+     * @param string $class the class
+     *
+     * @return self
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of method.
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * Sets the value of method.
+     *
+     * @param string $method the method
+     *
+     * @return self
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
 
         return $this;
     }
